@@ -5,11 +5,12 @@
   >
     <v-img
       class="white--text align-end"
-      height="200px"
+      height="150px"
       src="https://wiwibloggs.com/wp-content/uploads/2014/05/bbc-logo-red.jpg"
     >
-      <v-card-title>{{articleData.title}}</v-card-title>
     </v-img>
+    <v-card-title style="background-color: #dd170a" class="pt-3 white--text">{{articleData.title}}</v-card-title>
+    <!--Move style to global-->
 
     <!-- <v-card-subtitle class="pb-0">Number 10</v-card-subtitle> -->
     <!--Move the header to v-card-subtitle-->
@@ -27,9 +28,10 @@
               {{section.model.text}}
           </div>
            <div v-if="section.type === 'image'" class="pt-5">
+               <!--Change the lazy src to be just color black-->
                <v-img
                     v-bind:src="section.model.url"
-                    lazy-src="https://www.telegraph.co.uk/content/dam/women/2017/03/08/red_trans_NvBQzQNjv4BqVdTKv7s_pHOjygWVCEdXn_whuBm_mX9zX6zuvkZ-Nrw.JPG?imwidth=450"
+                    lazy-src="https://upload.wikimedia.org/wikipedia/commons/6/68/Solid_black.png" 
                     aspect-ratio="1"
                     class="grey lighten-2"
                     max-width="600"
@@ -87,5 +89,12 @@
           icon: "mdi-rowing",
           //change icon
     }),
+
+    methods: {
+      nextPost: function () {
+         this.$emit('changedPost');
+      }
+    },
+
   }
 </script>

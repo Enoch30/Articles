@@ -8,7 +8,7 @@
       height="200px"
       src="https://wiwibloggs.com/wp-content/uploads/2014/05/bbc-logo-red.jpg"
     > -->
-      <v-card-title>Currently viewing 1 of 5 
+      <v-card-title>Currently viewing {{selected}} of 5 
            <v-spacer></v-spacer>
         <v-btn
             text
@@ -38,7 +38,7 @@
 
   export default {
     name: 'Article',
-    props: ['articleData'],
+    props: ['data'],
 
     // components: {
     //   Article,
