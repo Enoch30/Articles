@@ -77,6 +77,9 @@
             this.notseen = [...Array(this.articles.length).keys()]
             this.nextPost()
             this.loading = false //remove loading spinner
+            if (window.Cypress) {
+              window.articles = response.data
+            }
         })
         .catch((error) => {
             console.log(error)

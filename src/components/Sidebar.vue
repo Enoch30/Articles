@@ -8,7 +8,7 @@
         <v-btn
             text
             color="red light"
-          
+            id="next-post"
             v-on:click="nextPost"
             v-if="data.notseen.length > 0"
             >
@@ -40,8 +40,8 @@
         </v-card-text>
         <template>
             <draggable v-model="rank" @end="onEnd">
-                <transition-group>
-                    <v-card outlined class="ma-3" v-for="article in data.articles" :key="article.title">
+                <transition-group id="rank-list">
+                    <v-card outlined class="ma-3 article-card" v-for="article in data.articles" :key="article.title">
                         <v-list-item>
                             <div class="article-title">
                                 {{article.title}}
@@ -53,6 +53,7 @@
         </template>
         <v-card-actions class="justify-center">
            <v-btn
+                id="submit-btn"
                 small
                 text
                 color="red dark dark"
