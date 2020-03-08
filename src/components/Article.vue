@@ -9,7 +9,7 @@
       src="https://wiwibloggs.com/wp-content/uploads/2014/05/bbc-logo-red.jpg"
     >
     </v-img>
-    <v-card-title style="background-color: #dd170a" class="pt-3 white--text">{{articleData.title}}</v-card-title>
+    <v-card-title style="background-color: #dd170a; font-size: 1rem" class="pt-3 white--text">{{data.articleData.title}}</v-card-title>
     <!--Move style to global-->
 
     <!-- <v-card-subtitle class="pb-0">Number 10</v-card-subtitle> -->
@@ -20,7 +20,7 @@
 
       <div>Whitsunday Island, Whitsunday Islands</div> -->
 
-      <div v-for="section in articleData.body" :key="section.id">
+      <div v-for="section in data.articleData.body" :key="section.title">
            <div v-if="section.type === 'heading'" class="pt-5">
               <h3>{{section.model.text}}</h3>
           </div>
@@ -57,18 +57,21 @@
     </v-card-text>
 
     <v-card-actions class="right float-right">
-      <v-btn
+      <!-- <v-btn
         color="red"
         text
       >
-        Do something
-      </v-btn>
+        Previous post
+      </v-btn> -->
 
       <v-btn
         color="red"
         text
+        v-on:click="nextPost"
+        v-if="data.notseen.length > 0"
       >
         Next post
+         <v-icon right small dark>mdi-arrow-right</v-icon>
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -79,7 +82,7 @@
 
   export default {
     name: 'Article',
-    props: ['articleData'],
+    props: ['data'],
 
     // components: {
     //   Article,
@@ -92,7 +95,7 @@
 
     methods: {
       nextPost: function () {
-         this.$emit('changedPost');
+         this.$emit('changePost');
       }
     },
 

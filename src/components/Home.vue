@@ -1,50 +1,23 @@
 <template>
-  <v-container style="max-width: 1000px">
+  <v-container style="max-width: 1100px">
     <!--Move style to stylesheet-->
 
-    <!-- <v-row class="text-center">
-      <v-col cols="12">
-        <v-img
-          :src="require('../assets/logo.svg')"
-          class="my-3"
-          contain
-          height="200"
-        />
-      </v-col>
-
-      <v-col class="mb-4">
-        <h1 class="display-2 font-weight-bold mb-3">
-          Welcome to Vuetify
-        </h1>
-
-        <p class="subheading font-weight-regular">
-          For help and collaboration with other Vuetify developers,
-          <br>please join our online
-          <a
-            href="https://community.vuetifyjs.com"
-            target="_blank"
-          >Discord Community</a>
-        </p>
-      </v-col>
-    </v-row> -->
   <v-spacer class="pt-5"></v-spacer>
-  
   <v-row>
     <v-col
       :cols="7"
     >
-    <Article :articleData="articles[seen[seen.length-1]]"/>
+    <Article :data="{articleData: currentArticle, notseen}" v-on:changePost="nextPost"/>
   </v-col>
   <v-col
       :cols="5"
     >
-    <Sidebar :data="[seen, articles]"/>
+    <Sidebar :data="{seen, notseen, articles}" v-on:changePost="nextPost" v-on:changeOrder="changeRank"/>
     </v-col>
   </v-row>
 
   </v-container>
 </template>
-vm.nextPost()
 <script>
   import Article from './Article';
   import Sidebar from './Sidebar';
@@ -59,9 +32,7 @@ vm.nextPost()
 
     created:function(){
        this.notseen = [...Array(this.articles.length).keys()]
-       var next = Math.floor(Math.random() * this.notseen.length)
-       this.seen.push(this.notseen[next])
-       this.notseen.splice(next, 1)
+       this.nextPost()
     },
 
     methods: {
@@ -69,9 +40,17 @@ vm.nextPost()
          var next = Math.floor(Math.random() * this.notseen.length)
          this.seen.push(this.notseen[next])
          this.notseen.splice(next, 1)
-         if(this.notseen.length === 0){
-           this.canRank = true;
+         //dont change the current title if currently ranking
+         if(this.notseen.length >= 0){
+           this.currentArticle = this.articles[this.seen[this.seen.length-1]]
          }
+         this.articles[this.seen.length-1].rank = this.seen.length
+      },
+
+      changeRank: function (evt) {
+          var temp =  this.articles[evt.oldIndex]
+          this.articles.splice(evt.oldIndex, 1);
+          this.articles.splice(evt.newIndex, 0, temp);
       }
     },
 
@@ -79,6 +58,7 @@ vm.nextPost()
      canRank: false,
      notseen: [],
      seen: [],
+     currentArticle: null,
      articles:
           [
             {
@@ -252,12 +232,12 @@ vm.nextPost()
           },
 
           {
-            "title": "Maecenas venenatis lorem ut erat dictum, sed varius est porta",
+            "title": "Maecenas venenatis lorem ut erat dictum, sed varius est port",
             "body": [
               {
                 "type": "heading",
                 "model": {
-                  "text": "Maecenas venenatis lorem ut erat dictum, sed varius est porta"
+                  "text": "Maecenas venenatis lorem ut erat dictum, sed varius est port"
                 }
               },
               {
