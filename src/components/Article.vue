@@ -17,26 +17,18 @@
       src="https://wiwibloggs.com/wp-content/uploads/2014/05/bbc-logo-red.jpg"
     >
     </v-img>
-    <v-card-title style="background-color: #dd170a; font-size: 1rem" class="pt-3 white--text">{{data.articleData.title}}</v-card-title>
-    <!--Move style to global-->
-
-    <!-- <v-card-subtitle class="pb-0">Number 10</v-card-subtitle> -->
-    <!--Move the header to v-card-subtitle-->
+    <v-card-title id="title" class="pt-3 white--text">{{data.articleData.title}}</v-card-title>
 
     <v-card-text class="text-primary">
-      <!-- <div>Whitehaven Beach</div>
-
-      <div>Whitsunday Island, Whitsunday Islands</div> -->
-
       <div v-for="section in data.articleData.body" :key="section.title">
            <div v-if="section.type === 'heading'" class="pt-5">
-              <h3>{{section.model.text}}</h3>
+              <h4>{{section.model.text}}</h4>
           </div>
           <div v-if="section.type === 'paragraph'" class="pt-5">
               {{section.model.text}}
           </div>
            <div v-if="section.type === 'image'" class="pt-5">
-               <!--Change the lazy src to be just color black-->
+               <!--Ideally, the lazy src below would be a nice local image-->
                <v-img
                     v-bind:src="section.model.url"
                     lazy-src="https://upload.wikimedia.org/wikipedia/commons/6/68/Solid_black.png" 
@@ -65,12 +57,13 @@
     </v-card-text>
 
     <v-card-actions class="right float-right">
-      <!-- <v-btn
+      <v-btn
         color="red"
         text
+        v-on:click="reloadPage"
       >
-        Previous post
-      </v-btn> -->
+        Start over
+      </v-btn>
 
       <v-btn
         color="red"
@@ -99,8 +92,13 @@
     }),
 
     methods: {
+     
       nextPost: function () {
+         // tell parent to change post
          this.$emit('changePost');
+      },
+      reloadPage: function (){
+          location.reload();
       }
     },
 

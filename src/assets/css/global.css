@@ -3,3 +3,26 @@ main {
     padding: 0;
     background-color:white
 }
+.article-count {
+    color: dimgrey; 
+    font-size: 1rem
+}
+.reference {
+    font-size: .8em; 
+    text-decoration: none; 
+}
+
+.rank-header {
+    font-size: 0.8rem
+}
+.article-title {
+    font-size: 0.9rem; 
+    color: dimgrey
+}
+#home-container {
+    max-width: 1100px
+}
+#title {
+    background-color: #dd170a; 
+    font-size: 1rem
+}
