@@ -41,7 +41,7 @@
     <template  v-else>
         <v-card-text class="text-primary font-weight-bold pa-0 pl-4 pt-4 pb-1">
             <v-icon small>mdi-chevron-triple-up</v-icon>
-            Rank posts
+            Rank posts <span class="text--disabled font-weight-regular" style="font-size: 0.8rem"> (drag to rearrange)</span>
         </v-card-text>
         <template>
             <draggable v-model="rank" @end="onEnd">
@@ -81,6 +81,7 @@
 <script>
 
  import draggable from 'vuedraggable'
+import { uuid } from 'vue-uuid';
 
   export default {
     name: 'Article',
@@ -99,14 +100,23 @@
         this.$emit('changePost');
       },
       submitRank: function() {
-       //temporary solution to show the rank is tracked
-       var response = "The order is \n\n";
 
-       this.data.articles.forEach((article)=>{
-           response += article.title + "\n"
-       })
-
-       window.alert(response)
+        // In a prod, uuid would be used throught (i.e. for the articles as well). and the rank would be store using article.id and index.
+        let rank = {
+            "id": uuid.v4(),
+            "data": this.data.articles.map((article, index) => {
+                        return [ article.title, index];
+                    })
+        }
+                    
+        window.axios.post('http://localhost:3000/rank', rank)
+        .then(() => {
+            window.alert("Your rank has been saved to 𝒔𝒆𝒓𝒗𝒆𝒓->𝒅𝒃.𝒋𝒔𝒐𝒏->𝒓𝒂𝒏𝒌.\n\nYour highest ranked was - " + rank.data[0][0] + "\n\nThe program will now reload")
+            location.reload();
+        }).catch((error) => {
+            console.log(error)
+            window.alert("Could send rank. Is server running?")
+        });
 
       },
       onEnd(evt) {

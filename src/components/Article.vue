@@ -1,4 +1,12 @@
 <template>
+<v-lazy
+    v-model="isActive"
+    :options="{
+        threshold: .5
+    }"
+    min-height="200"
+    transition="fade-transition"
+    >
   <v-card
     class="mx-auto"
     max-width="600"
@@ -50,7 +58,7 @@
           </div>
            <div v-if="section.type === 'list'" class="pt-5">
                <p  v-for="item in section.model.items" :key = item>
-                 <v-icon small v-text="icon"></v-icon> {{item}}
+                 <v-icon small v-text="icon" class="pr-2"></v-icon> {{item}}
               </p>
           </div>
       </div>
@@ -75,6 +83,7 @@
       </v-btn>
     </v-card-actions>
   </v-card>
+</v-lazy>
 </template>
 
 
@@ -84,13 +93,9 @@
     name: 'Article',
     props: ['data'],
 
-    // components: {
-    //   Article,
-    // },
-
     data: () => ({
-          icon: "mdi-rowing",
-          //change icon
+          icon: "mdi-radius-outline",
+          isActive: false
     }),
 
     methods: {
