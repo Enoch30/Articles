@@ -1,24 +1,37 @@
-# articles
+# Articled Feed
 
-## Project setup
+An application that allows reading and ranking of posts which are generated randomly
+
+## Run application
+
+SERVER
 ```
-yarn install
+cd server && yarn start
 ```
 
-### Compiles and hot-reloads for development
+APP (new terminal)
+
 ```
 yarn serve
 ```
 
-### Compiles and minifies for production
+#### Production
 ```
 yarn build
 ```
 
-### Lints and fixes files
+## Tests
+
 ```
-yarn lint
+yarn test:e2e
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Tools & Packages
+vuejs | vuetify | json-server | vue.draggable | uuid | cypress
+
+## Screenshots
+(Window has been zoomed out to accomodate all contents)
+
+<img src="images/1.png" width=700>
+<img src="images/2.png" width=700>
+<img src="images/3.png" width=400>
