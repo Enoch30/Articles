@@ -1,4 +1,4 @@
-# Articled Feed
+# Articles Feed
 
 An application that allows reading and ranking of posts which are generated randomly
 
